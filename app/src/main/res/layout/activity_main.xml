@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/Display"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_weight="1"
@@ -41,6 +41,7 @@
                 android:layout_width="0dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
+                android:onClick="open_parantheses"
                 android:foreground="@color/white"
                 android:foregroundTint="#00FB0303"
                 android:text="(" />
