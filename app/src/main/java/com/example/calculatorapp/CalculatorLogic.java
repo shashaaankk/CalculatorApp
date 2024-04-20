@@ -1,5 +1,8 @@
 package com.example.calculatorapp;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import java.util.*;
@@ -59,7 +62,7 @@ public class CalculatorLogic {
     this function is for handling brackets in the equation
     calls the compute function to solve the equation within brackets and simplifies equation
     */
-    public String eval(String s){
+    public String eval(String s, Context context){
         String substring="";
         String computeResult = "";
         Stack<Integer> position = new Stack<Integer>();  //stack to save positions of brackets to create substrings
@@ -76,8 +79,10 @@ public class CalculatorLogic {
                     idx = position.pop();
                     substring = s.substring(idx+1,pos);
                     computeResult = compute(substring);
-                    if (computeResult.equals("divide by zero"))
+                    if (computeResult.equals("divide by zero")){
+                        Toast.makeText(context, "Divide by zero", Toast.LENGTH_SHORT).show();
                         return computeResult;
+                    }
                     else{
                         s = s.replace('('+substring+')',computeResult);
                         pos= idx;
@@ -86,10 +91,16 @@ public class CalculatorLogic {
             }
             pos +=1;
         }
-        if (position.empty())
-            return compute(s);
-        else
+        if (position.empty()) {
+            String str =  compute(s);
+            if (str.equals("divide by zero"))
+                Toast.makeText(context, "Divide by zero", Toast.LENGTH_SHORT).show();
+            return  str;
+        }
+        else {
+            Toast.makeText(context, "Format Error", Toast.LENGTH_SHORT).show();
             return "error in format";
+        }
     }
     //public void main(String args[]) {
     //  String ip = "(-489.5*(-0.671/3))+(1+3)*(-1)+17899";  //ip for function
